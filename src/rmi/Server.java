@@ -10,11 +10,13 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -58,6 +60,7 @@ public class Server {
 			bindHotelFile(new File("DataStore/Hotels2.xml"));
 			bindHotelFile(new File("DataStore/Hotels3.xml"));
 			bindHotelFile(new File("DataStore/Hotels4.xml"));
+			Naming.bind("Annuaire", new Annuaire());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
