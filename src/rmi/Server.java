@@ -23,31 +23,15 @@ import org.xml.sax.SAXException;
 
 public class Server {
 	
-	public static void bindHotelFile(File f) throws SAXException, IOException, ParserConfigurationException, AlreadyBoundException{
-		Hotel hotel;
-		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(f);
-		//optional, but recommended
-		//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-		doc.getDocumentElement().normalize();
-		NodeList nList = doc.getElementsByTagName("Hotel");
-		for (int temp = 0; temp < nList.getLength(); temp++) {
-			Node nNode = nList.item(temp);
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
-				hotel = new Hotel(eElement.getAttribute("name"), eElement.getAttribute("location"));
-				Naming.bind(hotel.name, hotel);
-				System.out.println("Bound "+hotel.name);
-			}
-		}
+	public static void bindHotelFile(String name, String filename) throws SAXException, IOException, ParserConfigurationException, AlreadyBoundException{
+		Naming.bind(name,new Chaine(new File(filename)));
+		System.out.println("Bound "+name);
 	}
 	
 	public static void main(final String args[]) {
 		String nom="Hotel";
 		int nombre=1; int port = 1099;
 		Registry registry=null;
-		// installation d'un securityManager
-		// A COMPLETER : INSTALLATIOND'UN SECURITYMANAGER
-		// A COMPLETER : MISE EN PLACE DU REGISTRY
 		try {
 			registry = LocateRegistry.createRegistry(port);
 		} catch (RemoteException e1) {
@@ -56,10 +40,10 @@ public class Server {
 		}
 
 		try {
-			bindHotelFile(new File("DataStore/Hotels1.xml"));
-			bindHotelFile(new File("DataStore/Hotels2.xml"));
-			bindHotelFile(new File("DataStore/Hotels3.xml"));
-			bindHotelFile(new File("DataStore/Hotels4.xml"));
+			bindHotelFile("Chaine0","DataStore/Hotels1.xml");
+			bindHotelFile("Chaine1","DataStore/Hotels2.xml");
+			bindHotelFile("Chaine2","DataStore/Hotels3.xml");
+			bindHotelFile("Chaine3","DataStore/Hotels4.xml");
 			Naming.bind("Annuaire", new Annuaire());
 		} catch (Exception e) {
 			e.printStackTrace();

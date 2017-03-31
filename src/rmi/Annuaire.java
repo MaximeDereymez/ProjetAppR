@@ -15,7 +15,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class Annuaire extends UnicastRemoteObject implements IAnnuaire {
+public class Annuaire extends UnicastRemoteObject implements _Annuaire {
 	protected HashMap<String, String> annuaire;
 	
 	protected Annuaire() throws ParserConfigurationException, SAXException, IOException {
@@ -41,8 +41,8 @@ public class Annuaire extends UnicastRemoteObject implements IAnnuaire {
 	}
 
 	@Override
-	public String getNum(String hotel) throws RemoteException {
-		return annuaire.get(hotel);
+	public Numero get(String hotel) throws RemoteException {
+		return new Numero(annuaire.get(hotel));
 	}
 
 }
