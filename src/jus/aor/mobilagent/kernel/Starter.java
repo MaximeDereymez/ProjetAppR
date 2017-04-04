@@ -33,7 +33,7 @@ public class Starter{
 	/** le document xml en cours */
 	protected Document doc;
 	/** le logger pour ce code */
-	protected Logger logger;
+	protected static Logger logger;
 	/** le server associé à ce starter */
 	protected jus.aor.mobilagent.kernel._Server server;
 	/** le Loader utilisé */
@@ -41,7 +41,7 @@ public class Starter{
 	/** la classe du server : jus.aor.mobilagent.kernel.Server */
 	protected Class<jus.aor.mobilagent.kernel.Server> classe;
 
-	public Logger logger() {
+	public static Logger logger() {
 		return logger;
 	}
 	/**
@@ -83,7 +83,7 @@ public class Starter{
 	}
 	@SuppressWarnings("unchecked")
 	protected void createServer(int port, String name) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		loader = new BAMServerClassLoader(new URL[]{new URL("file:///jar/MobilagentServer.jar")},this.getClass().getClassLoader());
+		loader = new BAMServerClassLoader(new URL[]{new URL("file://jar/MobilagentServer.jar")},this.getClass().getClassLoader());
 		classe = (Class<jus.aor.mobilagent.kernel.Server>)Class.forName("jus.aor.mobilagent.kernel.Server",true,loader);
 		server = classe.getConstructor(int.class,String.class).newInstance(port,name);
 	}

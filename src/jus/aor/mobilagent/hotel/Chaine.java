@@ -1,4 +1,4 @@
-package hotel;
+package jus.aor.mobilagent.hotel;
 
 import java.io.File;
 import java.io.IOException;

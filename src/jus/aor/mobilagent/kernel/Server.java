@@ -51,7 +51,7 @@ public final class Server implements _Server{
                         /* temporisation de mise en place du server d'agents */
 			Thread.sleep(1000);
 		}catch(Exception ex){
-			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
+			logger.log(Level.FINE," erreur1 durant le lancement du serveur"+this,ex);
 			return;
 		}
 	}
@@ -67,12 +67,13 @@ public final class Server implements _Server{
 		    	BAMServerClassLoader loader = new BAMServerClassLoader(new URL[]{new URL(codeBase)}, getClass().getClassLoader());
 			Constructor<?> serviceConstructor = Class.forName(classeName, true, loader).getConstructor(Object[].class);
 			
-			_Service<?> service = (_Service<?>) serviceConstructor.newInstance(args);
+			_Service<?> service = (_Service<?>) serviceConstructor.newInstance(new Object[]{args});
 			
 			agentServer.AddService(name, service);
 			logger.log(Level.INFO, name+" instantiated");
 		}catch(Exception ex){
-			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
+			logger.log(Level.FINE," erreur2 durant le lancement du serveur"+this,ex);
+			ex.printStackTrace();
 			return;
 		}
 	}
@@ -103,7 +104,7 @@ public final class Server implements _Server{
 			
 			startAgent(agent, loader);
 		}catch(Exception ex){
-			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
+			logger.log(Level.FINE," erreur3 durant le lancement du serveur"+this,ex);
 			ex.printStackTrace();
 			return;
 		}
