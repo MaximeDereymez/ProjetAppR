@@ -70,41 +70,37 @@ public abstract class Agent implements _Agent{
     protected _Service<?> getService(String s){
         return agentServer.getService(s);
     }
-    
+
     private void move(){
-    	this.move(this.route.get().server);
+	this.move(this.route.get().server);
     }
-    
+
     protected void move(URI uri){
-    	try {
-			Socket socket = new Socket(uri.getHost(),uri.getPort());
-			OutputStream os = socket.getOutputStream();
-			ObjectOutputStream oos = new ObjectOutputStream(os);
-			ObjectOutputStream oos2 = new ObjectOutputStream(os);
-			//TODO ATTENTION EXPLOSION (il faut peut etre utiliser deux oos differents)
-			BAMAgentClassLoader bam = (BAMAgentClassLoader) this.getClass().getClassLoader();
-			Jar jarJar = bam.extractCode();
-			oos.writeObject(jarJar);
-			oos2.writeObject(this);
-			
-			oos.close();
-			oos2.close();
-			os.close();
-			socket.close();
-    	} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	// aller a l'adresse URI
+	try {
+	    Socket socket = new Socket(uri.getHost(),uri.getPort());
+	    OutputStream os = socket.getOutputStream();
+	    ObjectOutputStream oos = new ObjectOutputStream(os);
+	    ObjectOutputStream oos2 = new ObjectOutputStream(os);
+	    BAMAgentClassLoader bam = (BAMAgentClassLoader) this.getClass().getClassLoader();
+	    Jar jarJar = bam.extractCode();
+	    oos.writeObject(jarJar);
+	    oos2.writeObject(this);
+
+	    oos.close();
+	    oos2.close();
+	    os.close();
+	    socket.close();
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
-    
+
     protected String route (){
-        return route.toString();
-        //je suis pas sure
+	return route.toString();
     }
     @Override
     public String toString (){
-        return "route : "+this.route()+ "position"+this.serverName;
+	return "route : "+this.route()+ "position"+this.serverName;
     }
 }

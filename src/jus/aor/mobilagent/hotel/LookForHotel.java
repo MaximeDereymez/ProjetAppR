@@ -70,11 +70,14 @@ public class LookForHotel extends Agent {
 	    return new _Action(){
 		private static final long serialVersionUID = -5803078811425739714L;
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void execute() {
+		    Long duration = ((_Service<Long>) LookForHotel.this.getService("Duration")).call();
 		    Starter.logger().log(Level.ALL, "FINI");
 		    for(Hotel h : LookForHotel.this.hotels)
 			System.out.println(h.name+" "+numeros.get(h));
+		    System.out.println("Duration: "+duration);
 		}
 		
 	    };

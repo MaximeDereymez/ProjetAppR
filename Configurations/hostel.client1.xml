@@ -2,9 +2,9 @@
 <!DOCTYPE HTML PUBLIC  "-//W3C//DTD HTML 4.0 Transitional//EN" "Server.dtd"> 
 <server>
 	<port value="1111"/>
-	<!--  
-	<service name="Duration" codebase="file:///.../Duration.jar" class="jus.aor.mobilagent.hostel.Duration" args=""/>
-	-->
+	
+	<service name="Duration" codebase="file://jar/Duration.jar" class="jus.aor.mobilagent.hotel.Duration" args=""/>
+	
 <!--
 	<service name="Telephones" codebase="file:///.../AnnuaireHotel.jar" class="jus.aor.mobilagent.hostel.Annuaire" args=".../DataStore/Annuaire.xml"/>
 -->
