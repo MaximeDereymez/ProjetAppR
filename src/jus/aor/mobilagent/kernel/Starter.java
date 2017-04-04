@@ -39,6 +39,10 @@ public class Starter{
 	protected BAMServerClassLoader loader;
 	/** la classe du server : jus.aor.mobilagent.kernel.Server */
 	protected Class<jus.aor.mobilagent.kernel.Server> classe;
+
+	public Logger logger() {
+		return logger;
+	}
 	/**
 	 * 
 	 * @param args
