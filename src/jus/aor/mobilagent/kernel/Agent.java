@@ -21,7 +21,8 @@ import java.util.logging.Logger;
 public class Agent implements _Agent{
     Route route;
     private AgentServer agentServer;
-    private String serverName;
+    //protected pour pouvoir suivre l'avancement avec l'agent Hello
+    protected String serverName;
 
     public Agent(){
     	
