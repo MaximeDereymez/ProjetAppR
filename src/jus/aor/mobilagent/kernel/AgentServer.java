@@ -30,6 +30,7 @@ public class AgentServer extends Thread {
     
     
     AgentServer(int p, String s){
+    	System.out.println("port = "+p);
         port=p;
         name =s;
         services = new HashMap<String, _Service<?>>();

@@ -184,7 +184,7 @@ public class Starter{
 	 * @param args
 	 */
 	public static void main(String... args) {
-		if(System.getSecurityManager() == null) {
+/*		if(System.getSecurityManager() == null) {
 			System.setSecurityManager(new RMISecurityManager());
 		}
 		Properties props = System.getProperties();
@@ -192,7 +192,7 @@ public class Starter{
 		if(props == null) {
 			props = new Properties();
 		}
-		
+*/		
 //		props.setProperty("./policy.properties", value)
 		
 		new Starter(args);
