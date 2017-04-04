@@ -1,8 +1,7 @@
-package hotel;
+package jus.aor.mobilagent.hotel;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 
@@ -18,9 +17,10 @@ import org.xml.sax.SAXException;
 import jus.aor.mobilagent.kernel._Service;
 
 public class Annuaire extends UnicastRemoteObject implements _Annuaire, _Service<Numero> {
+    private static final long serialVersionUID = -4954798549247526470L;
 	protected HashMap<String, String> annuaire;
 	
-	protected Annuaire(Object[] args) throws ParserConfigurationException, SAXException, IOException {
+	public Annuaire(Object[] args) throws ParserConfigurationException, SAXException, IOException {
 		super();
 		/* Récupération de l'annuaire dans le fichier xml */
 		DocumentBuilder docBuilder = null;

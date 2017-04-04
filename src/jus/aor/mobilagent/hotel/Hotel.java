@@ -1,4 +1,6 @@
-package hotel;
+package jus.aor.mobilagent.hotel;
+
+import java.io.Serializable;
 
 /**
  * J<i>ava</i> U<i>tilities</i> for S<i>tudents</i>
@@ -8,7 +10,8 @@ package hotel;
  * Un hotel qui est caractérisé par son nom et sa localisation.
  * @author Morat 
  */
-public class Hotel {
+public class Hotel implements Serializable{
+    private static final long serialVersionUID = -2300821655489932436L;
 	/** la localisation de l'hôtel */
 	public String localisation;
 	/** le nom de l'hôtel */

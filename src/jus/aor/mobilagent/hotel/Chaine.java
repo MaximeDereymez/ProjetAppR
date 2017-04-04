@@ -1,8 +1,7 @@
-package hotel;
+package jus.aor.mobilagent.hotel;
 
 import java.io.File;
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;

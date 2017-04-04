@@ -107,7 +107,7 @@ public class AgentServer extends Thread {
     public URI site(){
         
         try {
-            return new URI("localhost:"+this.port);
+            return new URI("//localhost:"+this.port);
         } catch (URISyntaxException ex) {
             Logger.getLogger(AgentServer.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -54,10 +54,8 @@ class Route implements Iterable<Etape>, Serializable{
                     hasNext=false;
                     return retour;
                 }
-                else {
-                    route.remove(0);
-                    return route.get(0);
-                }
+                else 
+                    return route.remove(0);
                
 	}
 	/**

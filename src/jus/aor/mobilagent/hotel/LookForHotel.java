@@ -1,11 +1,13 @@
-package hotel;
+package jus.aor.mobilagent.hotel;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import jus.aor.mobilagent.kernel.Agent;
+import jus.aor.mobilagent.kernel.Starter;
 import jus.aor.mobilagent.kernel._Action;
 import jus.aor.mobilagent.kernel._Service;
 
@@ -29,8 +31,8 @@ public class LookForHotel extends Agent {
 	 * @param args les arguments n'en comportant qu'un seul qui indique le critère
 	 *          de localisation
 	 */
-	public LookForHotel(String... args){
-		localisation = args[0];
+	public LookForHotel(Object... args){
+		localisation = args[0].toString();
 		hotels = new LinkedList<>();
 		numeros = new HashMap<Hotel,Numero>();
 	}
@@ -39,6 +41,7 @@ public class LookForHotel extends Agent {
 
 	    private static final long serialVersionUID = -5462249915229967567L;
 
+	    @SuppressWarnings("unchecked")
 	    @Override
 	    public void execute() {
 		List<Hotel> chaineHotels = (List<Hotel>) LookForHotel.this.getService("Hotels").call(new Object[]{localisation});
@@ -51,6 +54,7 @@ public class LookForHotel extends Agent {
 
 	    private static final long serialVersionUID = -9211118182369995431L;
 
+	    @SuppressWarnings("unchecked")
 	    @Override
 	    public void execute() {
 		_Service<Numero> annuaire = (_Service<Numero>) LookForHotel.this.getService("Telephones");
@@ -61,4 +65,21 @@ public class LookForHotel extends Agent {
 	    }
 	    
 	};
+	@Override
+	protected _Action retour() {
+	    return new _Action(){
+		private static final long serialVersionUID = -5803078811425739714L;
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void execute() {
+		    Long duration = ((_Service<Long>) LookForHotel.this.getService("Duration")).call();
+		    Starter.logger().log(Level.ALL, "FINI");
+		    for(Hotel h : LookForHotel.this.hotels)
+			System.out.println(h.name+" "+numeros.get(h));
+		    System.out.println("Duration: "+duration);
+		}
+		
+	    };
+	}
 }

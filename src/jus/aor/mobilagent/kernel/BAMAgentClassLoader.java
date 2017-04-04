@@ -25,7 +25,7 @@ public class BAMAgentClassLoader extends ClassLoader {
     private Map<String, byte[]> classes;
     
     public BAMAgentClassLoader(String s, ClassLoader classLoader) {
-        super(classLoader);
+        this(classLoader);
         Jar jarJar;
 		try {
 			jarJar = new Jar(s);
