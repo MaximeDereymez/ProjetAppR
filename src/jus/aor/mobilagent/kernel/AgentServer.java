@@ -5,8 +5,13 @@
  */
 package jus.aor.mobilagent.kernel;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -15,20 +20,36 @@ import java.net.URI;
 /* implement thread ou extend runnable ?*/
 public class AgentServer extends Thread {
     
-    int id;
-    String jesaispas;//peut etre URI
+    private int port;
+    private String name;
+    private Map<String,_Service<?>> services;
     
     
-    AgentServer(int i, String s){
-        id=i;
-        jesaispas=s;
+    AgentServer(int p, String s){
+        port=p;
+        name =s;
+        services = new HashMap<String, _Service<?>>();
     }
     
     
-    public _Agent getAgent(Socket s){
-        return null;
-        //TODO
-    }
+    public _Agent getAgent(Socket s) throws IOException, ClassNotFoundException{
+        BAMAgentClassLoader classLoader = new BAMAgentClassLoader(this.getClass().getClassLoader());
+        InputStream is= s.getInputStream();
+        ObjectInputStream ois = new ObjectInputStream(is);
+        AgentInputStream ais= new AgentInputStream(is, classLoader);
+        
+        Jar jarjar = (Jar) ois.readObject();
+        classLoader.integrateCode(jarjar);
+        
+        _Agent agent = (_Agent)ais.readObject();
+        
+        ois.close();
+        ais.close();
+        is.close();
+        
+        return _Agent;
+    }   
+    
     @Override
     public void run(){
         
@@ -37,7 +58,7 @@ public class AgentServer extends Thread {
     
     
     public void AddService (String s, _Service<?> service){
-        //TODO
+        this.services.put(s, service);
     }
     
     
