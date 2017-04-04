@@ -13,6 +13,7 @@ import java.rmi.RMISecurityManager;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -183,7 +184,17 @@ public class Starter{
 	 * @param args
 	 */
 	public static void main(String... args) {
-		if(System.getSecurityManager() == null)System.setSecurityManager(new RMISecurityManager());
+		if(System.getSecurityManager() == null) {
+			System.setSecurityManager(new RMISecurityManager());
+		}
+		Properties props = System.getProperties();
+		
+		if(props == null) {
+			props = new Properties();
+		}
+		
+//		props.setProperty("./policy.properties", value)
+		
 		new Starter(args);
 	}
 }

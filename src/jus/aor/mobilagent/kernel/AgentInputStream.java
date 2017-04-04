@@ -18,7 +18,7 @@ class AgentInputStream extends ObjectInputStream{
      */
     BAMAgentClassLoader loader;
 
-    public AgentInputStream(InputStream is, BAMAgentClassLoader cl) throws IOException{
+    AgentInputStream(InputStream is, BAMAgentClassLoader cl) throws IOException{
     	super(is);
     	loader = cl;
     }
