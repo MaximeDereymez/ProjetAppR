@@ -18,9 +18,13 @@ import java.util.logging.Logger;
  *
  * @author romane
  */
-public class Agent implements _Agent{
+public abstract class Agent implements _Agent{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -899873575940529123L;
     Route route;
-    private AgentServer agentServer;
+    protected transient AgentServer agentServer;
     //protected pour pouvoir suivre l'avancement avec l'agent Hello
     protected String serverName;
 
@@ -54,22 +58,19 @@ public class Agent implements _Agent{
             Logger.getLogger(AgentServer.class.getName()).log(Level.FINE,"L'agent "+this+ "fait l'action"+ etape);
             //On ne fait pas de move sur la dernière étape
             if(this.route.hasNext)
-                move(etape.server);
-            else 
-                Logger.getLogger(AgentServer.class.getName()).log(Level.FINE," L'agent "+ this+"a fini");
+                move();
+            else
+        	retour().execute();
+                //Logger.getLogger(AgentServer.class.getName()).log(Level.FINE," L'agent "+ this+"a fini");
             
         }
        
     }
 
-    protected _Action retour(){
-        return null;
-        //TODO je sais pas ce que ca doit faire 
-    }
+    protected abstract _Action retour();
     
     protected _Service<?> getService(String s){
-        return null;
-        //TODO je sais pas quoi faire ici
+        return agentServer.getService(s);
     }
     
     private void move(){
@@ -81,14 +82,17 @@ public class Agent implements _Agent{
 			Socket socket = new Socket(uri.getHost(),uri.getPort());
 			OutputStream os = socket.getOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(os);
+			ObjectOutputStream oos2 = new ObjectOutputStream(os);
 			//TODO ATTENTION EXPLOSION (il faut peut etre utiliser deux oos differents)
 			BAMAgentClassLoader bam = (BAMAgentClassLoader) this.getClass().getClassLoader();
 			Jar jarJar = bam.extractCode();
 			oos.writeObject(jarJar);
-			oos.writeObject(this);
+			oos2.writeObject(this);
 			
 			oos.close();
+			oos2.close();
 			os.close();
+			socket.close();
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

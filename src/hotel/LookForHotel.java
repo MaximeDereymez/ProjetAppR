@@ -61,4 +61,8 @@ public class LookForHotel extends Agent {
 	    }
 	    
 	};
+	@Override
+	protected _Action retour() {
+	    return _Action.NIHIL;
+	}
 }

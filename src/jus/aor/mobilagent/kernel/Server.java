@@ -70,6 +70,7 @@ public final class Server implements _Server{
 			_Service<?> service = (_Service<?>) serviceConstructor.newInstance(args);
 			
 			agentServer.AddService(name, service);
+			logger.log(Level.INFO, name+" instantiated");
 		}catch(Exception ex){
 			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
 			return;
@@ -89,7 +90,7 @@ public final class Server implements _Server{
 		    	Class <?> agentClass = Class.forName(classeName, true, loader);
 			Constructor<?> agentConstructor = agentClass.getConstructor(Object[].class);
 			
-			_Agent agent = (_Agent) agentConstructor.newInstance(args);
+			_Agent agent = (_Agent) agentConstructor.newInstance(new Object[]{args});
 			agent.init(agentServer, name);
 			
 			int nbEtapes = etapeAction.size();
@@ -103,6 +104,7 @@ public final class Server implements _Server{
 			startAgent(agent, loader);
 		}catch(Exception ex){
 			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
+			ex.printStackTrace();
 			return;
 		}
 	}
@@ -118,13 +120,14 @@ public final class Server implements _Server{
 		Socket socket = new Socket(agentServerURI.getHost(), agentServerURI.getPort());
 		OutputStream os = socket.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
+		ObjectOutputStream oos2 = new ObjectOutputStream(os);
 
 		Jar jarJar = loader.extractCode();
 
 		oos.writeObject(jarJar);
-		oos.writeObject(agent);
+		oos2.writeObject(agent);
 
-		oos.close();
+		oos2.close();
 		socket.close();
 	}
 }
