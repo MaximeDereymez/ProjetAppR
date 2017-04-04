@@ -41,6 +41,7 @@ public class LookForHotel extends Agent {
 
 	    private static final long serialVersionUID = -5462249915229967567L;
 
+	    @SuppressWarnings("unchecked")
 	    @Override
 	    public void execute() {
 		List<Hotel> chaineHotels = (List<Hotel>) LookForHotel.this.getService("Hotels").call(new Object[]{localisation});
@@ -53,6 +54,7 @@ public class LookForHotel extends Agent {
 
 	    private static final long serialVersionUID = -9211118182369995431L;
 
+	    @SuppressWarnings("unchecked")
 	    @Override
 	    public void execute() {
 		_Service<Numero> annuaire = (_Service<Numero>) LookForHotel.this.getService("Telephones");

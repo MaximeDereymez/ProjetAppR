@@ -5,15 +5,12 @@ package jus.aor.mobilagent.kernel;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RMISecurityManager;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,7 +55,6 @@ public class Starter{
 		}catch(IllegalArgumentException e) {
 			level=java.util.logging.Level.SEVERE;
 		}
-		level=java.util.logging.Level.FINEST;
 		try {
 			/* Mise en place du logger pour tracer l'application */
 			String loggerName = "jus/aor/mobilagent/"+InetAddress.getLocalHost().getHostName()+"/"+args[1];

@@ -73,7 +73,6 @@ public final class Server implements _Server{
 			logger.log(Level.INFO, name+" instantiated");
 		}catch(Exception ex){
 			logger.log(Level.FINE," erreur2 durant le lancement du serveur"+this,ex);
-			ex.printStackTrace();
 			return;
 		}
 	}
