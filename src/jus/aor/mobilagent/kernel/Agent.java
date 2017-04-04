@@ -5,23 +5,36 @@
  */
 package jus.aor.mobilagent.kernel;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URI;
+import java.net.UnknownHostException;
 
 /**
  *
  * @author romane
  */
 public class Agent implements _Agent{
-    public Agent(){}
     Route route;
+	private AgentServer agentServer;
+	private String serverName;
+
+    public Agent(){
+    	
+    }
+    
     public void init(AgentServer agentServer, String serverName) {
-        //TODO
-        
+        this.agentServer = agentServer;
+        this.serverName = serverName;
+        this.route = new Route(new Etape(agentServer.site(), _Action.NIHIL));
+        this.route.add(new Etape(agentServer.site(), _Action.NIHIL));
     }
 
     public void reInit(AgentServer server, String serverName) {
-        //TODO
-        
+    	this.agentServer = server;
+    	this.serverName = serverName;
     }
 
     public void addEtape(Etape etape) {
@@ -34,9 +47,11 @@ public class Agent implements _Agent{
         //Faire toute les etapes de la feuille de route
         while(route.hasNext){
             Etape etape=route.next();
-             //aller a l'adresse etape.URI
-             //move(etape);
-            //faire l'action etape.Action
+            etape.action.execute();
+
+            //On ne fait pas de move sur la dernière étape
+            if(this.route.hasNext)
+                move(etape.server);
             
         }
        
@@ -53,11 +68,28 @@ public class Agent implements _Agent{
     }
     
     private void move(){
-        //TODO
+    	this.move(this.route.get().server);
     }
     
     protected void move(URI uri){
-        // aller a l'adresse URI
+    	try {
+			Socket socket = new Socket(uri.getHost(),uri.getPort());
+			OutputStream os = socket.getOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(os);
+			//TODO ATTENTION EXPLOSION (il faut peut etre utiliser deux oos differents)
+			BAMAgentClassLoader bam = (BAMAgentClassLoader) this.getClass().getClassLoader();
+			Jar jarJar = bam.extractCode();
+			oos.writeObject(jarJar);
+			oos.writeObject(this);
+			
+			oos.close();
+			os.close();
+    	} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	// aller a l'adresse URI
     }
     
     protected String route (){
