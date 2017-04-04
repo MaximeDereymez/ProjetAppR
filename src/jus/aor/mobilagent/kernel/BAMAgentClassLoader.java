@@ -42,7 +42,7 @@ public class BAMAgentClassLoader extends ClassLoader {
         this.classes = new HashMap<String, byte[]>();
     }
     
-    private void integrateCode (Jar jar){
+    public void integrateCode (Jar jar){
         for(Entry<String,byte[]> e : jar)
         {
         	String s = this.className(e.getKey());

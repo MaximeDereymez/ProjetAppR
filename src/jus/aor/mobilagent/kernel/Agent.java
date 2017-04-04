@@ -11,6 +11,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URI;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,8 +20,9 @@ import java.net.UnknownHostException;
  */
 public class Agent implements _Agent{
     Route route;
-	private AgentServer agentServer;
-	private String serverName;
+    private AgentServer agentServer;
+    //protected pour pouvoir suivre l'avancement avec l'agent Hello
+    protected String serverName;
 
     public Agent(){
     	
@@ -43,15 +46,17 @@ public class Agent implements _Agent{
     
     @Override
     public void run() {
-        //TODO
-        //Faire toute les etapes de la feuille de route
-        while(route.hasNext){
+        
+        Logger.getLogger(AgentServer.class.getName()).log(Level.FINE, "Lancement de l'agent" + this.toString());
+        if(route.hasNext){
             Etape etape=route.next();
             etape.action.execute();
-
+            Logger.getLogger(AgentServer.class.getName()).log(Level.FINE,"L'agent "+this+ "fait l'action"+ etape);
             //On ne fait pas de move sur la dernière étape
             if(this.route.hasNext)
                 move(etape.server);
+            else 
+                Logger.getLogger(AgentServer.class.getName()).log(Level.FINE," L'agent "+ this+"a fini");
             
         }
        
@@ -59,12 +64,12 @@ public class Agent implements _Agent{
 
     protected _Action retour(){
         return null;
-        //TODO
+        //TODO je sais pas ce que ca doit faire 
     }
     
     protected _Service<?> getService(String s){
         return null;
-        //TODO
+        //TODO je sais pas quoi faire ici
     }
     
     private void move(){
@@ -95,5 +100,9 @@ public class Agent implements _Agent{
     protected String route (){
         return route.toString();
         //je suis pas sure
+    }
+    @Override
+    public String toString (){
+        return "route : "+this.route()+ "position"+this.serverName;
     }
 }

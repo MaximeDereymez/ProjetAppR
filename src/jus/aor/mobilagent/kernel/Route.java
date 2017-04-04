@@ -40,7 +40,7 @@ class Route implements Iterable<Etape>, Serializable{
 	 * @return la prochaine étape.
 	 */
 	Etape get() throws NoSuchElementException {
-		//A COMPLETER
+		if(!hasNext) throw new NoSuchElementException();
                 if (route.size()==0)return retour;
                 else return route.get(0);
 	}
@@ -49,7 +49,7 @@ class Route implements Iterable<Etape>, Serializable{
 	 * @return la prochaine étape.
 	 */
 	Etape next() throws NoSuchElementException {
-		//A COMPLETER
+	    	if(!hasNext) throw new NoSuchElementException();
                 if (route.size()==0){
                     hasNext=false;
                     return retour;
