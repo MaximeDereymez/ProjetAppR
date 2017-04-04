@@ -10,7 +10,34 @@ package jus.aor.mobilagent.kernel;
  * @author romane
  */
 public class ServiceDescriptor {
-    
-    // je sias pas si il faut faire cette classe
-    
+	
+	/*
+	 probablement faux ou incomplet
+	 */
+	
+	
+	private String name;
+	
+	public ServiceDescriptor(String name) {
+		this.name = name;
+	}
+	
+	public String name() {
+		return name;
+	}
+	
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	@Override
+	public boolean equals(Object serviceDescriptor) {
+		return ((ServiceDescriptor) serviceDescriptor).name().equals(this.name);
+	}
 }
