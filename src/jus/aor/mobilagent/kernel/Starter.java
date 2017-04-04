@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RMISecurityManager;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -181,10 +182,10 @@ public class Starter{
 	 * @param args
 	 */
 	public static void main(String... args) {
-/*		if(System.getSecurityManager() == null) {
+		if(System.getSecurityManager() == null) {
 			System.setSecurityManager(new RMISecurityManager());
 		}
-		Properties props = System.getProperties();
+/*		Properties props = System.getProperties();
 		
 		if(props == null) {
 			props = new Properties();

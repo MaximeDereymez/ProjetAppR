@@ -1,8 +1,10 @@
 package jus.aor.mobilagent.hello;
 
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 import jus.aor.mobilagent.kernel.Agent;
+import jus.aor.mobilagent.kernel.Starter;
 import jus.aor.mobilagent.kernel._Action;
 
 /**
@@ -36,6 +38,7 @@ public class Hello extends Agent{
 
 	    @Override
 	    public void execute() {
+		Starter.logger().log(Level.INFO,"Hello "+serverName+".");
 		System.out.println("Hello "+serverName+".");
 		serverList.add(serverName);
 	    }
@@ -54,13 +57,17 @@ public class Hello extends Agent{
 		    private static final long serialVersionUID = 8112403583439231794L;
 
 		    @Override
-        	    public void execute() {
-        		System.out.println("Visited the following servers");
-        		for(String server : serverList)
-        		    System.out.println(server);
-        	    }
+        	public void execute() {
+		    	Starter.logger().log(Level.INFO,"Visited the following servers");
+		    	System.out.println("Visited the following servers");
+
+		    	for(String server : serverList) {
+		    		Starter.logger().log(Level.INFO, server);
+        			System.out.println(server);
+		    	}
+        	}
                     
-        	};
+                };
 	}
 	// ...
 }
