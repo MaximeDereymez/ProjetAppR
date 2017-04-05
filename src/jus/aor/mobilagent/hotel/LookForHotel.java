@@ -74,10 +74,9 @@ public class LookForHotel extends Agent {
 		@Override
 		public void execute() {
 		    Long duration = ((_Service<Long>) LookForHotel.this.getService("Duration")).call();
-		    Starter.logger().log(Level.ALL, "FINI");
 		    for(Hotel h : LookForHotel.this.hotels)
-			System.out.println(h.name+" "+numeros.get(h));
-		    System.out.println("Duration: "+duration);
+			Starter.logger().log(Level.INFO, h.name+" "+numeros.get(h));
+		    Starter.logger().log(Level.INFO,"Duration: "+duration);
 		}
 		
 	    };

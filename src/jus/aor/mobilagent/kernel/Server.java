@@ -127,6 +127,7 @@ public final class Server implements _Server{
 		oos.writeObject(jarJar);
 		oos2.writeObject(agent);
 
+		oos.close();
 		oos2.close();
 		socket.close();
 	}

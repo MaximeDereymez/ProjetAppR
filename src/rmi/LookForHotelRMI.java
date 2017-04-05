@@ -16,6 +16,7 @@ import java.util.List;
 public class LookForHotelRMI{
     /** le critère de localisaton choisi */
     private String localisation;
+    private static final int N=4;
     // ...
     /**
      * Définition de l'objet représentant l'interrogation.
@@ -36,7 +37,7 @@ public class LookForHotelRMI{
 	try {
 	    _Chaine chaine;
 	    _Annuaire annuaire = (_Annuaire) Naming.lookup("Annuaire");
-	    for(int i=0; i<4; i++){
+	    for(int i=0; i<N; i++){
 	        chaine = (_Chaine) Naming.lookup("Chaine"+i);
 	        for(Hotel hotel : chaine.get(localisation))
 	            numeros.add(annuaire.get(hotel.name));
